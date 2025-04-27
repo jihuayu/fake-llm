@@ -15,8 +15,6 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl vim
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
-COPY run.sh .
-
 # 从构建阶段复制构建好的JAR文件
 COPY --from=build /app/target/*.jar app.jar
 
