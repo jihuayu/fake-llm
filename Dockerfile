@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # 第二阶段：创建运行环境
-FROM openjdk:23-jdk-bullseye
+FROM openjdk:23-jdk-slim
 WORKDIR /app
 RUN apt-get update && apt-get install -y curl vim
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
