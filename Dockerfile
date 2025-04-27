@@ -29,4 +29,4 @@ USER 101
 
 
 # 设置容器启动命令
-ENTRYPOINT ["sh", "run.sh"]
+ENTRYPOINT ["java","-jar", "/app/app.jar"]
