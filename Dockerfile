@@ -11,9 +11,12 @@ RUN mvn clean package -DskipTests
 
 # 第二阶段：创建运行环境
 FROM openjdk:23-jdk-slim
+LABEL org.opencontainers.image.source=https://github.com/jihuayu/fake-llm
+LABEL org.opencontainers.image.description="虚假的LLM提供商，用于调试和测试目的"
+LABEL org.opencontainers.image.licenses=Apache-2.0
+LABEL org.opencontainers.image.authors="jihuayu"
+
 WORKDIR /app
-RUN apt-get update && apt-get install -y curl vim
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 # 从构建阶段复制构建好的JAR文件
 COPY --from=build /app/target/*.jar app.jar
@@ -24,7 +27,6 @@ EXPOSE 8080
 RUN useradd -ms /bin/bash myuser -u 101
 RUN chown -R myuser:myuser /app
 USER 101
-
 
 # 设置容器启动命令
 ENTRYPOINT ["java","-jar", "/app/app.jar"]
